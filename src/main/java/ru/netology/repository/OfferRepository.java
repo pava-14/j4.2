@@ -5,8 +5,9 @@ import ru.netology.domain.Offer;
 public class OfferRepository {
     private Offer[] offers;
 
-    public OfferRepository(Offer[] offers) {
-        this.offers = offers;
+
+    public OfferRepository() {
+        offers = new Offer[0];
     }
 
     public void save(Offer item) {
