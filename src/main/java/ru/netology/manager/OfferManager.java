@@ -1,6 +1,8 @@
 package ru.netology.manager;
 
 import ru.netology.domain.Offer;
+import ru.netology.domain.OfferByPriceAscComparator;
+import ru.netology.domain.OfferByTimeAscComparator;
 import ru.netology.repository.OfferRepository;
 
 import java.lang.reflect.Array;
@@ -38,9 +40,21 @@ public class OfferManager {
         return result;
     }
 
-    public Offer[] listOffers() {
+    public Offer[] listOffersByPriceAsc() {
         Offer[] result = repository.findAll();
-        Arrays.sort(result);
+        Arrays.sort(result, new OfferByPriceAscComparator());
+        return result;
+    }
+
+    public Offer[] listOffersByTimeDesc() {
+        Offer[] result = repository.findAll();
+        Arrays.sort(result, new OfferByTimeAscComparator().reversed());
+        return result;
+    }
+
+    public Offer[] listOffersByTimeAsc() {
+        Offer[] result = repository.findAll();
+        Arrays.sort(result, new OfferByTimeAscComparator());
         return result;
     }
 }

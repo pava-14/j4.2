@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class OfferManagerTest {
 
     private OfferManager manager;
-    private Offer offer1 = new Offer(2, 10_000, "OVB", "AER", 300);
+    private Offer offer1 = new Offer(2, 10_000, "OVB", "AER", 310);
     private Offer offer2 = new Offer(1, 7_000, "OVB", "AER", 480);
     private Offer offer3 = new Offer(3, 9_000, "AER", "OVB", 360);
     private Offer offer4 = new Offer(4, 7_100, "OVB", "UUDD", 240);
@@ -28,9 +28,21 @@ class OfferManagerTest {
     }
 
     @Test
-    void shouldlistOffers() {
+    void shouldlistOffersByPriceAsc() {
         Offer[] expected = new Offer[]{offer2, offer4, offer5, offer3, offer1};
-        assertArrayEquals(expected, manager.listOffers());
+        assertArrayEquals(expected, manager.listOffersByPriceAsc());
+    }
+
+    @Test
+    void shouldlistOffersByTimeAsc() {
+        Offer[] expected = new Offer[]{offer4, offer5, offer1, offer3, offer2};
+        assertArrayEquals(expected, manager.listOffersByTimeAsc());
+    }
+
+    @Test
+    void shouldlistOffersByTimeDesc() {
+        Offer[] expected = new Offer[]{offer2, offer3, offer1, offer5, offer4};
+        assertArrayEquals(expected, manager.listOffersByTimeDesc());
     }
 
     @Test
