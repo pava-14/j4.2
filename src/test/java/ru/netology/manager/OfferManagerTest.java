@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Offer;
+import ru.netology.domain.OfferByPriceAscComparator;
 import ru.netology.repository.OfferRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,18 +35,6 @@ class OfferManagerTest {
     }
 
     @Test
-    void shouldlistOffersByTimeAsc() {
-        Offer[] expected = new Offer[]{offer4, offer5, offer1, offer3, offer2};
-        assertArrayEquals(expected, manager.listOffersByTimeAsc());
-    }
-
-    @Test
-    void shouldlistOffersByTimeDesc() {
-        Offer[] expected = new Offer[]{offer2, offer3, offer1, offer5, offer4};
-        assertArrayEquals(expected, manager.listOffersByTimeDesc());
-    }
-
-    @Test
     void shouldSearchByIfExixsts() {
         Offer[] expected = new Offer[]{offer2, offer1};
         assertArrayEquals(expected, manager.searchBy("OVB", "AER"));
@@ -55,5 +44,23 @@ class OfferManagerTest {
     void shouldSearchByIfNotExixsts() {
         Offer[] expected = new Offer[0];
         assertArrayEquals(expected, manager.searchBy("AER", "UUDD"));
+    }
+
+    @Test
+    void shouldlistOffersByTimeAsc() {
+        Offer[] expected = new Offer[]{offer4, offer5, offer1, offer3, offer2};
+        assertArrayEquals(expected, manager.listOffersByTimeAsc());
+    }
+
+    @Test
+    void shouldFindAllSortByPriceAsc() {
+        Offer[] expected = new Offer[]{offer2, offer1};
+        assertArrayEquals(expected, manager.findAll("OVB", "AER", new OfferByPriceAscComparator()));
+    }
+
+    @Test
+    void shouldFindAllSortByTimeDesc() {
+        Offer[] expected = new Offer[]{offer5, offer4};
+        assertArrayEquals(expected, manager.findAll("OVB", "UUDD", new OfferByPriceAscComparator().reversed()));
     }
 }

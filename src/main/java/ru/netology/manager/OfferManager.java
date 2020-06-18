@@ -7,6 +7,7 @@ import ru.netology.repository.OfferRepository;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class OfferManager {
     private OfferRepository repository;
@@ -22,6 +23,22 @@ public class OfferManager {
 
     public void add(Offer offer) {
         repository.save(offer);
+    }
+
+    public Offer[] findAll(String from, String to, Comparator<Offer> comparator) {
+        Offer[] result = new Offer[0];
+        for (Offer offer : repository.findAll()) {
+            if (matches(offer, from, to)) {
+                int length = result.length + 1;
+                Offer[] tmp = new Offer[length];
+                System.arraycopy(result, 0, tmp, 0, result.length);
+                int lastIndex = tmp.length - 1;
+                tmp[lastIndex] = offer;
+                result = tmp;
+            }
+            Arrays.sort(result, comparator);
+        }
+        return result;
     }
 
     public Offer[] searchBy(String from, String to) {
@@ -43,12 +60,6 @@ public class OfferManager {
     public Offer[] listOffersByPriceAsc() {
         Offer[] result = repository.findAll();
         Arrays.sort(result, new OfferByPriceAscComparator());
-        return result;
-    }
-
-    public Offer[] listOffersByTimeDesc() {
-        Offer[] result = repository.findAll();
-        Arrays.sort(result, new OfferByTimeAscComparator().reversed());
         return result;
     }
 
