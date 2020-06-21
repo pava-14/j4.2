@@ -5,7 +5,6 @@ import ru.netology.domain.OfferByPriceAscComparator;
 import ru.netology.domain.OfferByTimeAscComparator;
 import ru.netology.repository.OfferRepository;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -36,8 +35,8 @@ public class OfferManager {
                 tmp[lastIndex] = offer;
                 result = tmp;
             }
-            Arrays.sort(result, comparator);
         }
+        Arrays.sort(result, comparator);
         return result;
     }
 

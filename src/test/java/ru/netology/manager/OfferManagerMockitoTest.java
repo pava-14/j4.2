@@ -59,6 +59,7 @@ public class OfferManagerMockitoTest {
         Offer[] expected = new Offer[]{offer2, offer1};
         assertArrayEquals(expected, manager.searchBy("OVB", "AER"));
     }
+
     @Test
     void shouldSearchByIfNotExixsts() {
         Offer[] returned = new Offer[]{offer1, offer2, offer3, offer4, offer5};
